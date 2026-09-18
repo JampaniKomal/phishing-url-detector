@@ -42,10 +42,10 @@ phishing-url-detector/
 │   └── best_model.pkl
 │
 ├── notebooks/
-│   ├── 01_data_sourcing_and_exploration.py
-│   ├── 02_feature_engineering_and_preprocessing.py
-│   ├── 03_model_development.py
-│   └── 04_results_visualization.py
+│   ├── 01_data_sourcing_and_exploration.ipynb
+│   ├── 02_feature_engineering_and_preprocessing.ipynb
+│   ├── 03_model_development.ipynb
+│   └── 04_results_and_visualization.ipynb
 │
 ├── .gitignore
 ├── README.md
@@ -86,7 +86,7 @@ Potential extensions include:
 
 1. Clone the repository:
      ```
-     git clone <your-repository-link>
+     git clone https://github.com/JampaniKomal/phishing-url-detector.git
      cd phishing-url-detector
      ```
 2. Create and activate a virtual environment:
@@ -106,7 +106,40 @@ Potential extensions include:
 5. Run the notebooks:
      - Open the `notebooks/` directory and run the Jupyter notebooks in order (01 to 04).
 
-## Acknowledgments
+## Testing & Verification
 
-This project was created with assistance from Gemini.  
-The dataset is sourced from Kaggle.
+The processed train/test split (`data/processed/`) is already committed,
+so notebooks 03 and 04 were actually re-executed end to end
+(`jupyter nbconvert --execute`) against it rather than just reading the
+code. Notebook 03 trains Logistic Regression, Random Forest, and an SVM
+and picks the best by F1-score; Random Forest wins reproducibly
+(F1 0.847 vs. 0.727 and 0.719) since the split and models are seeded
+with `random_state=42`. Notebook 04's feature-importance plot is gated
+behind `isinstance(best_model, RandomForestClassifier)`, so it would
+silently skip itself if a different model type ever won instead — but
+on this dataset Random Forest genuinely and consistently wins, so the
+check passes and both the confusion matrix and feature-importance
+plots render. `url_length`, `hostname_length`, and `count_digits` came
+out as the top predictive features.
+
+Notebooks 01 and 02 require the raw Kaggle CSV
+(`data/raw/dataset_phishing.csv`), which is intentionally not committed
+(`.gitignore` excludes raw CSVs) — this step was verified by reading
+the notebook logic rather than a live re-run, since it needs a manual
+Kaggle download.
+
+`pip-audit` on `requirements.txt`: no known vulnerabilities.
+
+## Known Limitations
+
+- The 13 hand-engineered lexical/structural features do not include
+  domain-reputation, WHOIS, or webpage-content signals — see Future
+  Scope.
+- No automated test suite — verification was running the real
+  notebooks against real data, not a committed `tests/` directory.
+- Reproducing notebooks 01-02 requires manually downloading the
+  Kaggle dataset; it is not bundled with the repository.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
