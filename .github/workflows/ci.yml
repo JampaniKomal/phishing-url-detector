@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python }}, ${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, python: "3.10" }
+          - { os: ubuntu-latest, python: "3.13" }
+          - { os: windows-latest, python: "3.12" }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: pytest -q
+      - name: Train and check a few URLs
+        shell: bash
+        run: |
+          phishing-url-detector train
+          phishing-url-detector info
+          phishing-url-detector check "https://en.wikipedia.org/wiki/Phishing"
+          # must exit with 1 (phishing found); a bare "! cmd" would not fail the step
+          code=0; phishing-url-detector check "http://paypal.com.account-verify.example/login" || code=$?
+          test "$code" -eq 1
+
+  notebooks:
+    name: Notebooks run end to end
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[notebooks]"
+      - name: Execute notebooks 01 to 04 in order
+        run: |
+          for nb in notebooks/0*.ipynb; do
+            jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=900 --output-dir /tmp/executed "$nb"
+          done
+
+  docker:
+    name: Container image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -t phishing-url-detector:ci .
+      - name: Check a lookalike URL (exit code 1 = phishing)
+        run: |
+          code=0; docker run --rm phishing-url-detector:ci check "http://paypa1.com/signin" || code=$?
+          test "$code" -eq 1
