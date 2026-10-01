@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing URL Detector</title>
+<style>
+:root { --bg: #f7f7f5; --fg: #1d1d1b; --muted: #6b6b66; --card: #fff; --line: #e2e2dd; --bad: #b3261e; --bad-bg: #fdecea; --ok: #1e7a3c; --ok-bg: #e7f5ec; --accent: #2f5bd3; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #161615; --fg: #ececea; --muted: #a3a39d; --card: #1f1f1d; --line: #33332f; --bad: #ff8a80; --bad-bg: #3a1d1b; --ok: #7ad69b; --ok-bg: #16301f; --accent: #8fa8ff; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 900px; margin: 0 auto; padding: 32px 16px 64px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+.muted { color: var(--muted); font-size: 13px; }
+textarea { width: 100%; min-height: 120px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--fg); font: 14px ui-monospace, Consolas, monospace; }
+button { margin-top: 8px; padding: 8px 18px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
+.result { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
+.url { font-family: ui-monospace, Consolas, monospace; word-break: break-all; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-right: 8px; }
+.phishing { background: var(--bad-bg); color: var(--bad); }
+.legitimate { background: var(--ok-bg); color: var(--ok); }
+.invalid { background: var(--line); color: var(--muted); }
+ul { margin: 8px 0 0; padding-left: 20px; }
+.sev-high { color: var(--bad); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Phishing URL Detector</h1>
+  <p class="muted">Paste one URL per line. URLs are only analysed as text; nothing is opened or fetched.
+    Model: {{ meta.model }} · phishing at probability ≥ {{ meta.threshold }} or a high-severity lookalike.</p>
+  <form method="post">
+    <textarea name="urls" placeholder="http://paypal.com.account-verify.example/login" autofocus>{{ text }}</textarea>
+    <button type="submit">Check</button>
+  </form>
+  {% if results %}
+    {% for r in results %}
+    <div class="result">
+      <div><span class="badge {{ r.verdict }}">{{ r.verdict }}</span>
+        {% if r.probability is not none %}<span class="muted">P(phishing) = {{ "%.2f"|format(r.probability) }} · site {{ r.site }}</span>{% endif %}</div>
+      <div class="url">{{ r.url }}</div>
+      {% if r.lookalike or r.signals %}
+      <ul>
+        {% for f in r.lookalike %}<li class="sev-{{ f.severity }}">Imitates {{ f.brand }} ({{ f.technique }}): {{ f.detail }}</li>{% endfor %}
+        {% for s in r.signals %}<li>{{ s }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {% endfor %}
+  {% endif %}
+</main>
+</body>
+</html>

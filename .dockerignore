@@ -1,0 +1,10 @@
+.git
+.github
+data/raw
+models
+notebooks
+docs
+scripts
+tests
+**/__pycache__
+.ruff_cache
