@@ -73,3 +73,7 @@ ENV/
 # IDE settings
 .idea/
 .vscode/
+# v2
+data/raw/
+docs/benchmark/run.log
+.ruff_cache/
