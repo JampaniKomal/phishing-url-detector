@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phishing-url-detector"
+dynamic = ["version"]
+description = "Detect phishing URLs and domains that imitate genuine ones: URL features, character n-grams and lookalike-domain checks."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Jampani Komal" }]
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scikit-learn>=1.6",
+  "tldextract>=5.1",
+  "joblib>=1.3",
+  "flask>=3.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+notebooks = ["matplotlib>=3.7", "seaborn>=0.13", "nbconvert>=7", "ipykernel>=6"]
+
+[project.scripts]
+phishing-url-detector = "phishing_url_detector.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "phishing_url_detector.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["phishing_url_detector*"]
+
+[tool.setuptools.package-data]
+"phishing_url_detector" = ["templates/*.html"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+# The formatter keeps code within the limit; long messages stay on one line.
+# SIM905: "a b c".split() is kept for long word lists.
+ignore = ["E501", "SIM905"]
