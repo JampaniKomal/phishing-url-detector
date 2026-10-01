@@ -1,0 +1,566 @@
+{
+  "data": {
+    "urls": 11429,
+    "phishing": 5714,
+    "sites": 6634,
+    "urls_sharing_a_site": 0.5112
+  },
+  "cross_validation": {
+    "v1_by_site": {
+      "metrics": {
+        "roc_auc": 0.8787,
+        "accuracy": 0.7983,
+        "precision": 0.7964,
+        "recall": 0.8015,
+        "f1": 0.799,
+        "false_positive_rate": 0.2049
+      },
+      "seconds": 4.3
+    },
+    "features_by_site": {
+      "metrics": {
+        "roc_auc": 0.9496,
+        "accuracy": 0.8735,
+        "precision": 0.8793,
+        "recall": 0.8658,
+        "f1": 0.8725,
+        "false_positive_rate": 0.1188
+      },
+      "seconds": 33.2
+    },
+    "ngrams_by_site": {
+      "metrics": {
+        "roc_auc": 0.9646,
+        "accuracy": 0.8976,
+        "precision": 0.9056,
+        "recall": 0.8878,
+        "f1": 0.8966,
+        "false_positive_rate": 0.0926
+      },
+      "seconds": 30.4
+    },
+    "combined_by_site": {
+      "metrics": {
+        "roc_auc": 0.9721,
+        "accuracy": 0.9108,
+        "precision": 0.9138,
+        "recall": 0.9071,
+        "f1": 0.9104,
+        "false_positive_rate": 0.0856
+      },
+      "seconds": 36.1
+    },
+    "v1_random": {
+      "metrics": {
+        "roc_auc": 0.9156,
+        "accuracy": 0.8414,
+        "precision": 0.8403,
+        "recall": 0.8428,
+        "f1": 0.8416,
+        "false_positive_rate": 0.1601
+      },
+      "seconds": 3.5
+    },
+    "combined_random": {
+      "metrics": {
+        "roc_auc": 0.9854,
+        "accuracy": 0.9395,
+        "precision": 0.9458,
+        "recall": 0.9323,
+        "f1": 0.939,
+        "false_positive_rate": 0.0534
+      },
+      "seconds": 44.7
+    }
+  },
+  "combined_threshold_2pct_fpr": 0.7478,
+  "combined_by_site_at_threshold": {
+    "roc_auc": 0.9721,
+    "accuracy": 0.8549,
+    "precision": 0.9734,
+    "recall": 0.7298,
+    "f1": 0.8342,
+    "false_positive_rate": 0.0199
+  },
+  "sources": {
+    "openphish_urls": 300,
+    "fetched": "2026-10-01",
+    "tranco_list_id": "Q2K34",
+    "tranco_top": 10000
+  },
+  "out_of_time": {
+    "v1": {
+      "openphish_detected_at_0.5": 0.6067,
+      "tranco_flagged_at_0.5": 0.1526
+    },
+    "combined": {
+      "openphish_detected_at_0.5": 0.8767,
+      "tranco_flagged_at_0.5": 0.2029,
+      "openphish_detected_at_0.7478": 0.59,
+      "tranco_flagged_at_0.7478": 0.0142,
+      "openphish_detected_model_or_high_lookalike": 0.59,
+      "sweep": [
+        {
+          "threshold": 0.5,
+          "dataset_recall": 0.9071,
+          "dataset_false_positives": 0.0856,
+          "openphish_detected": 0.8767,
+          "tranco_flagged": 0.2029
+        },
+        {
+          "threshold": 0.55,
+          "dataset_recall": 0.881,
+          "dataset_false_positives": 0.0632,
+          "openphish_detected": 0.8567,
+          "tranco_flagged": 0.1319
+        },
+        {
+          "threshold": 0.6,
+          "dataset_recall": 0.8509,
+          "dataset_false_positives": 0.0481,
+          "openphish_detected": 0.8067,
+          "tranco_flagged": 0.0873
+        },
+        {
+          "threshold": 0.65,
+          "dataset_recall": 0.8189,
+          "dataset_false_positives": 0.0373,
+          "openphish_detected": 0.7533,
+          "tranco_flagged": 0.0483
+        },
+        {
+          "threshold": 0.7,
+          "dataset_recall": 0.779,
+          "dataset_false_positives": 0.0287,
+          "openphish_detected": 0.6967,
+          "tranco_flagged": 0.0256
+        },
+        {
+          "threshold": 0.7478,
+          "dataset_recall": 0.7298,
+          "dataset_false_positives": 0.0199,
+          "openphish_detected": 0.59,
+          "tranco_flagged": 0.0142
+        },
+        {
+          "threshold": 0.8,
+          "dataset_recall": 0.675,
+          "dataset_false_positives": 0.0114,
+          "openphish_detected": 0.4867,
+          "tranco_flagged": 0.0079
+        },
+        {
+          "threshold": 0.9,
+          "dataset_recall": 0.4905,
+          "dataset_false_positives": 0.0021,
+          "openphish_detected": 0.22,
+          "tranco_flagged": 0.001
+        }
+      ],
+      "tranco_top_flagged_examples": [
+        [
+          "https://dropboxusercontent.com/",
+          0.965
+        ],
+        [
+          "https://dropbox-dns.com/",
+          0.947
+        ],
+        [
+          "https://sharepointonline.com/",
+          0.946
+        ],
+        [
+          "https://182682.xyz/",
+          0.917
+        ],
+        [
+          "https://10086.cn/",
+          0.914
+        ],
+        [
+          "https://tinyurl.com/",
+          0.91
+        ],
+        [
+          "https://icloud-content.com/",
+          0.91
+        ],
+        [
+          "https://hubspotusercontent-na1.net/",
+          0.903
+        ],
+        [
+          "https://rebrand.ly/",
+          0.902
+        ],
+        [
+          "https://googleadservices.com/",
+          0.901
+        ]
+      ]
+    }
+  },
+  "openphish_lookalike": {
+    "examples": [
+      [
+        "http://clone-facebook-five.vercel.app/",
+        "facebook",
+        "brand-in-subdomain",
+        "medium"
+      ],
+      [
+        "https://support-encontrar2yx.us/icloud2022-esp.php/",
+        "icloud",
+        "brand-in-path",
+        "low"
+      ],
+      [
+        "https://support-encontrar2yx.us/icloud2022-esp.php",
+        "icloud",
+        "brand-in-path",
+        "low"
+      ],
+      [
+        "https://secure-coinbase-com-sign-in.typedream.app/en-us",
+        "coinbase",
+        "brand-in-subdomain",
+        "medium"
+      ],
+      [
+        "https://akshitofficials.github.io/Spotify-clone/",
+        "spotify",
+        "brand-in-path",
+        "low"
+      ],
+      [
+        "https://nfacebook.vn/timbannay30092026?Tnd&Hwt",
+        "facebook",
+        "typosquat",
+        "high"
+      ],
+      [
+        "https://carladelcastillo.com/h/google.html",
+        "google",
+        "brand-in-path",
+        "low"
+      ],
+      [
+        "http://microsoft.empowerbydxc.com/errors/404.aspx",
+        "microsoft",
+        "brand-in-subdomain",
+        "medium"
+      ],
+      [
+        "https://microsoft.empowerbydxc.com/errors/invalid-site",
+        "microsoft",
+        "brand-in-subdomain",
+        "medium"
+      ],
+      [
+        "https://microsoft.empowerbydxc.com/",
+        "microsoft",
+        "brand-in-subdomain",
+        "medium"
+      ],
+      [
+        "https://m.facebook.itlandfz.com/",
+        "facebook",
+        "brand-in-subdomain",
+        "medium"
+      ],
+      [
+        "https://devg-in.github.io/Amazon-homepage-clone/",
+        "amazon",
+        "brand-in-path",
+        "low"
+      ],
+      [
+        "https://lsoports-cloudmx.us/icloud2022-esp.php/",
+        "icloud",
+        "brand-in-path",
+        "low"
+      ],
+      [
+        "https://lsoports-cloudmx.us/icloud2022-esp.php/s3.php",
+        "icloud",
+        "brand-in-path",
+        "low"
+      ],
+      [
+        "https://www.my-instagram-frontend.vercel.app/",
+        "instagram",
+        "brand-in-subdomain",
+        "medium"
+      ]
+    ],
+    "any": 0.1433,
+    "high": 0.0033
+  },
+  "lookalike": {
+    "generated_detected": {
+      "distinctive": {
+        "omission": {
+          "n": 282,
+          "detected": 0.9504
+        },
+        "repetition": {
+          "n": 282,
+          "detected": 0.9504
+        },
+        "transposition": {
+          "n": 246,
+          "detected": 0.9512
+        },
+        "replacement": {
+          "n": 1321,
+          "detected": 0.9531
+        },
+        "homoglyph": {
+          "n": 228,
+          "detected": 0.9386
+        },
+        "hyphenation": {
+          "n": 251,
+          "detected": 0.9522
+        },
+        "combosquat": {
+          "n": 648,
+          "detected": 0.9444
+        },
+        "subdomain": {
+          "n": 72,
+          "detected": 0.9722
+        },
+        "tld-swap": {
+          "n": 144,
+          "detected": 0.9722
+        }
+      },
+      "word-only or 5 letters": {
+        "omission": {
+          "n": 77,
+          "detected": 0.0
+        },
+        "repetition": {
+          "n": 77,
+          "detected": 0.1558
+        },
+        "transposition": {
+          "n": 63,
+          "detected": 0.0
+        },
+        "replacement": {
+          "n": 368,
+          "detected": 0.0
+        },
+        "homoglyph": {
+          "n": 76,
+          "detected": 0.7368
+        },
+        "hyphenation": {
+          "n": 67,
+          "detected": 0.0149
+        },
+        "combosquat": {
+          "n": 252,
+          "detected": 0.7143
+        },
+        "subdomain": {
+          "n": 28,
+          "detected": 0.8571
+        },
+        "tld-swap": {
+          "n": 56,
+          "detected": 0.8571
+        }
+      }
+    },
+    "tranco_flagged_any": 0.024,
+    "tranco_flagged_high": 0.0006,
+    "tranco_high_examples": [
+      [
+        "https://googll.store/",
+        "google",
+        "typosquat"
+      ],
+      [
+        "https://onmicrosoft.com/",
+        "microsoft",
+        "typosquat"
+      ],
+      [
+        "https://s-microsoft.com/",
+        "microsoft",
+        "typosquat"
+      ],
+      [
+        "https://oneidrive.org/",
+        "onedrive",
+        "typosquat"
+      ],
+      [
+        "https://twister.porn/",
+        "twitter",
+        "typosquat"
+      ],
+      [
+        "https://onlinepbx.ru/",
+        "onlinesbi",
+        "typosquat"
+      ]
+    ],
+    "tranco_any_examples": [
+      [
+        "https://googleapis.com/",
+        "google",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://googlevideo.com/",
+        "google",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://googletagmanager.com/",
+        "google",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://apple-dns.net/",
+        "apple",
+        "combosquat",
+        "medium"
+      ],
+      [
+        "https://googledomains.com/",
+        "google",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://googlesyndication.com/",
+        "google",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://cdninstagram.com/",
+        "instagram",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://amazonvideo.com/",
+        "amazon",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://google-analytics.com/",
+        "google",
+        "combosquat",
+        "medium"
+      ],
+      [
+        "https://amazon.dev/",
+        "amazon",
+        "unofficial-domain",
+        "medium"
+      ],
+      [
+        "https://amazon-adsystem.com/",
+        "amazon",
+        "combosquat",
+        "medium"
+      ],
+      [
+        "https://adobe.io/",
+        "adobe",
+        "unofficial-domain",
+        "medium"
+      ],
+      [
+        "https://paytmfirstgames.com/",
+        "paytm",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://googleadservices.com/",
+        "google",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://cdn-apple.com/",
+        "apple",
+        "combosquat",
+        "medium"
+      ],
+      [
+        "https://youtube-nocookie.com/",
+        "youtube",
+        "combosquat",
+        "medium"
+      ],
+      [
+        "https://media-amazon.com/",
+        "amazon",
+        "combosquat",
+        "medium"
+      ],
+      [
+        "https://facebook.net/",
+        "facebook",
+        "unofficial-domain",
+        "medium"
+      ],
+      [
+        "https://googleblog.com/",
+        "google",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://amazontrust.com/",
+        "amazon",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://google.cn/",
+        "google",
+        "unofficial-domain",
+        "medium"
+      ],
+      [
+        "https://adobe.net/",
+        "adobe",
+        "unofficial-domain",
+        "medium"
+      ],
+      [
+        "https://amazonalexa.com/",
+        "amazon",
+        "combosquat",
+        "low"
+      ],
+      [
+        "https://amazon.co.za/",
+        "amazon",
+        "unofficial-domain",
+        "medium"
+      ],
+      [
+        "https://google.de/",
+        "google",
+        "unofficial-domain",
+        "medium"
+      ]
+    ]
+  }
+}
